@@ -1,0 +1,16 @@
+
+/*Create Restaurant Table Query*/
+CREATE TABLE `restaurant` (
+  `RestaurantId` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `RestaurantName` varchar(150) NOT NULL,
+  `OwnerName` varchar(100) NOT NULL,
+  `Address` varchar(300) NOT NULL,
+  `MobileNo` varchar(10) NOT NULL,
+  `CreatedTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `UpdatedTime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `SubscribitonEnd` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `RootUserName` varchar(20) NOT NULL,
+  `RootPassword` varchar(30) NOT NULL,
+  PRIMARY KEY (`RestaurantId`),
+  UNIQUE KEY `RootUserName` (`RootUserName`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
