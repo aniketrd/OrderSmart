@@ -1,9 +1,12 @@
 package com.jarvis.controller;
 
+import com.jarvis.dao.UserDao;
 import com.jarvis.data.User;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by Aniket on 24-02-2017.
@@ -12,10 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserDetailsController {
 
-    @RequestMapping("/")
-    public User getUserDetails()
-    {
+    @Autowired
+    private UserDao userDao;
 
-        return new User("Aniket");
+    @RequestMapping("/getUsers")
+    public List<User> getUserDetails()
+    {
+        List<User> users= userDao.getAllUsers();
+        return users;
     }
 }
