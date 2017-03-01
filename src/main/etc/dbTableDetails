@@ -14,3 +14,22 @@ CREATE TABLE `restaurant` (
   PRIMARY KEY (`RestaurantId`),
   UNIQUE KEY `RootUserName` (`RootUserName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+
+
+
+/*Create MenuItem Table Query*/
+CREATE TABLE `menuitem` (
+  `MenuItemId` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `RestaurantId` int(10) unsigned NOT NULL,
+  `ItemName` varchar(70) NOT NULL,
+  `Price` decimal(13,2) DEFAULT NULL,
+  `Description` varchar(150) NOT NULL,
+  `Category` varchar(30) NOT NULL,
+  `SubCategory` varchar(30) NOT NULL,
+  `IsVeg` tinyint(1) DEFAULT NULL,
+  `PhotoPath` varchar(100) NOT NULL,
+  PRIMARY KEY (`MenuItemId`),
+  KEY `RestaurantId` (`RestaurantId`),
+  CONSTRAINT `menuitem_ibfk_1` FOREIGN KEY (`RestaurantId`) REFERENCES `restaurant` (`RestaurantId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

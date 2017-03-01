@@ -18,9 +18,10 @@
         <property name="password" value="${datasource.password}"/>
     </bean>
 
-    <!-- Definition for studentJDBCTemplate bean -->
+    <!-- Definition for dao beans -->
     <bean id="userDao"  class="com.jarvis.dao.implemenatation.UserDaoImpl"></bean>
     <bean id="restaurantDao"  class="com.jarvis.dao.implemenatation.RestaurantDaoImpl"></bean>
+    <bean id="menuDao"  class="com.jarvis.dao.implemenatation.MenuDaoImpl"></bean>
 
 
 
