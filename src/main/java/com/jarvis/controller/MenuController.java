@@ -49,4 +49,11 @@ public class MenuController {
     public int deleteMenuItem(@RequestParam(name = "itemId")Integer itemId){
         return menuDao.deleteItem(itemId);
     }
+
+    @RequestMapping(value = "/updateItem",method = RequestMethod.POST)
+    public void updateMenuItem(@RequestBody MenuItem menuItem)
+    {
+        menuDao.updateMenuItem(menuItem);
+    }
+
 }

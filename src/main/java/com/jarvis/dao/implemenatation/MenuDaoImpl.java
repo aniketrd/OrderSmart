@@ -3,6 +3,7 @@ package com.jarvis.dao.implemenatation;
 import com.jarvis.dao.BaseDao;
 import com.jarvis.dao.MenuDao;
 import com.jarvis.data.MenuItem;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -68,17 +69,7 @@ public class MenuDaoImpl extends BaseDao implements MenuDao {
             List<Object> params = getUpdateQueryAndParams(menuItem,MENU_ITEM_TABLE_NAME,MENU_ITEM_ID,builder);
             String sql =builder.toString();
             System.out.print("SQL : "+ builder.toString()+"\n\n Params : "+params );
-            return jdbcTemplateObject.update(new PreparedStatementCreator() {
-                @Override
-                public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                    PreparedStatement ps = con.prepareStatement(sql);
-                    for (int i=0; i<params.size();i++)
-                    {
-                        ps.setObject(i+1,params.get(i));
-                    }
-                    return ps;
-                }
-            });
+            return executeUpdateStatement(jdbcTemplateObject,sql,params);
 
     }
 
