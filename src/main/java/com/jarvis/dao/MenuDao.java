@@ -11,5 +11,5 @@ public interface MenuDao {
 
     public List<MenuItem> getMenuList(Integer restaurantId);
     public int addMenuItem(MenuItem menuItem);
-
+    public int deleteItem(Integer itemId);
 }

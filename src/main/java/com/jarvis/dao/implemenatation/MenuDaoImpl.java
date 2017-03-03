@@ -3,7 +3,6 @@ package com.jarvis.dao.implemenatation;
 import com.jarvis.dao.BaseDao;
 import com.jarvis.dao.MenuDao;
 import com.jarvis.data.MenuItem;
-import com.jarvis.data.RestaurantDetails;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -33,6 +32,12 @@ public class MenuDaoImpl extends BaseDao implements MenuDao {
         Object[] objs= new Object[]{item.getRestaurantId(),item.getItemName(),item.getPrice(),item.getDescription(),item.getCategory(),item.getSubCategory(),item.getVeg(),item.getPhotoPath()};
         return jdbcTemplateObject.update( sql, objs);
 
+    }
+
+    @Override
+    public int deleteItem(Integer itemId) {
+        String sql = "DELETE from menuitem WHERE "+MENU_ITEM_ID+ " = ?";
+        return jdbcTemplateObject.update(sql,itemId);
     }
 
     public class MenuItemMapper implements RowMapper<MenuItem> {
