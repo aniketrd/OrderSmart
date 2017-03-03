@@ -8,7 +8,7 @@ public class MenuItem {
     private Integer menuItemId;
     private Integer restaurantId;
     private String itemName;
-    private float price;
+    private Float price;
     private String description;
     private String category;
     private String subCategory;
@@ -39,11 +39,11 @@ public class MenuItem {
         this.itemName = itemName;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
@@ -71,11 +71,11 @@ public class MenuItem {
         this.subCategory = subCategory;
     }
 
-    public Boolean getVeg() {
+    public Boolean getIsVeg() {
         return isVeg;
     }
 
-    public void setVeg(Boolean veg) {
+    public void setIsVeg(Boolean veg) {
         isVeg = veg;
     }
 

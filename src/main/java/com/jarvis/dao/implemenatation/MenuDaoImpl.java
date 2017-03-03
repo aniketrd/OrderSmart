@@ -8,8 +8,14 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.jarvis.etc.Constants.*;
 
@@ -41,7 +47,7 @@ public class MenuDaoImpl extends BaseDao implements MenuDao {
                 ps.setString(4,item.getDescription());
                 ps.setString(5,item.getCategory());
                 ps.setString(6,item.getSubCategory());
-                ps.setBoolean(7,item.getVeg());
+                ps.setBoolean(7,item.getIsVeg());
                 ps.setString(8,item.getPhotoPath());
                 return ps;
             }
@@ -55,6 +61,30 @@ public class MenuDaoImpl extends BaseDao implements MenuDao {
         return jdbcTemplateObject.update(sql,itemId);
     }
 
+    @Override
+    public int updateMenuItem(MenuItem menuItem) {
+
+            StringBuilder builder = new StringBuilder();
+            List<Object> params = getUpdateQueryAndParams(menuItem,MENU_ITEM_TABLE_NAME,MENU_ITEM_ID,builder);
+            String sql =builder.toString();
+            System.out.print("SQL : "+ builder.toString()+"\n\n Params : "+params );
+            return jdbcTemplateObject.update(new PreparedStatementCreator() {
+                @Override
+                public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                    PreparedStatement ps = con.prepareStatement(sql);
+                    for (int i=0; i<params.size();i++)
+                    {
+                        ps.setObject(i+1,params.get(i));
+                    }
+                    return ps;
+                }
+            });
+
+    }
+
+
+
+
     public class MenuItemMapper implements RowMapper<MenuItem> {
 
         @Override
@@ -67,7 +97,7 @@ public class MenuDaoImpl extends BaseDao implements MenuDao {
             menuItem.setDescription(rs.getString(MENU_ITEM_DESC));
             menuItem.setCategory(rs.getString(MENU_ITEM_CATEGORY));
             menuItem.setSubCategory(rs.getString(MENU_ITEM_SUB_CAT));
-            menuItem.setVeg(rs.getBoolean(MENU_ITEM_VEG_FLAG));
+            menuItem.setIsVeg(rs.getBoolean(MENU_ITEM_VEG_FLAG));
             menuItem.setPhotoPath(rs.getString(MENU_ITEM_PHOTO_PATH));
             return menuItem;
         }

@@ -22,6 +22,7 @@ public class Constants {
     /*
     * * Menu Menemonics
     */
+    public static final String MENU_ITEM_TABLE_NAME ="menuitem";
     public static final String MENU_ITEM_ID = "MenuItemId";
     public static final String MENU_ITEM_NAME = "ItemName";
     public static final String MENU_ITEM_PRICE = "Price";
