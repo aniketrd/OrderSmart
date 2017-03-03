@@ -1,92 +1,104 @@
 package com.jarvis.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.sql.Timestamp;
 
 /**
  * Created by Aniket on 26-02-2017.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RestaurantDetails {
 
-    private Integer RestaurantId;
-    private String RestaurantName;
-    private String OwerName;
-    private String Address;
-    private String MobileNo;
-    private Timestamp CreatedTime;
-    private Timestamp UpdatedTime;
-    private Timestamp SubscribitonEnd;
-    private String RootUserName;
+    private Integer restaurantId;
+    private String restaurantName;
+    private String owerName;
+    private String address;
+    private String mobileNo;
+    private Timestamp createdTime;
+    private Timestamp updatedTime;
+    private String subscribitonEnd;
+    private String rootUserName;
+    private String rootPassword;
+
+    public String getRootPassword() {
+        return rootPassword;
+    }
+
+    public void setRootPassword(String rootPassword) {
+        this.rootPassword = rootPassword;
+    }
 
     public Integer getRestaurantId() {
-        return RestaurantId;
+        return restaurantId;
     }
 
     public void setRestaurantId(Integer restaurantId) {
-        RestaurantId = restaurantId;
+        this.restaurantId = restaurantId;
     }
 
     public String getRestaurantName() {
-        return RestaurantName;
+        return restaurantName;
     }
 
     public void setRestaurantName(String restaurantName) {
-        RestaurantName = restaurantName;
+        this.restaurantName = restaurantName;
     }
 
     public String getOwerName() {
-        return OwerName;
+        return owerName;
     }
 
     public void setOwerName(String owerName) {
-        OwerName = owerName;
+        this.owerName = owerName;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public String getMobileNo() {
-        return MobileNo;
+        return mobileNo;
     }
 
     public void setMobileNo(String mobileNo) {
-        MobileNo = mobileNo;
+        this.mobileNo = mobileNo;
     }
 
     public Timestamp getCreatedTime() {
-        return CreatedTime;
+        return createdTime;
     }
 
     public void setCreatedTime(Timestamp createdTime) {
-        CreatedTime = createdTime;
+        this.createdTime = createdTime;
     }
 
     public Timestamp getUpdatedTime() {
-        return UpdatedTime;
+        return updatedTime;
     }
 
     public void setUpdatedTime(Timestamp updatedTime) {
-        UpdatedTime = updatedTime;
+        this.updatedTime = updatedTime;
     }
 
-    public Timestamp getSubscribitonEnd() {
-        return SubscribitonEnd;
+    public String getSubscribitonEnd() {
+        return subscribitonEnd;
     }
 
-    public void setSubscribitonEnd(Timestamp subscribitonEnd) {
-        SubscribitonEnd = subscribitonEnd;
+    public void setSubscribitonEnd(String subscribitonEnd) {
+        this.subscribitonEnd = subscribitonEnd;
     }
 
     public String getRootUserName() {
-        return RootUserName;
+        return rootUserName;
     }
 
     public void setRootUserName(String rootUserName) {
-        RootUserName = rootUserName;
+        this.rootUserName = rootUserName;
     }
 }

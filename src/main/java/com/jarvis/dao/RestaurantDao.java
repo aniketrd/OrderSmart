@@ -11,4 +11,5 @@ public interface RestaurantDao {
     ** Get restaurant details
     */
     public RestaurantDetails getRestaurantDetails(String userName, String password);
+    public int signUp(RestaurantDetails details);
 }
