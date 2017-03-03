@@ -3,10 +3,12 @@ package com.jarvis.dao.implemenatation;
 import com.jarvis.dao.BaseDao;
 import com.jarvis.dao.MenuDao;
 import com.jarvis.data.MenuItem;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 import static com.jarvis.etc.Constants.*;
@@ -28,10 +30,23 @@ public class MenuDaoImpl extends BaseDao implements MenuDao {
     public int addMenuItem(MenuItem item) {
 
         String sql = "insert into menuitem ( RestaurantId,ItemName,Price,Description,Category,SubCategory,IsVeg,PhotoPath) values (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        Object[] objs= new Object[]{item.getRestaurantId(),item.getItemName(),item.getPrice(),item.getDescription(),item.getCategory(),item.getSubCategory(),item.getVeg(),item.getPhotoPath()};
-        return jdbcTemplateObject.update( sql, objs);
-
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplateObject.update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1,item.getRestaurantId());
+                ps.setString(2,item.getItemName());
+                ps.setFloat(3,item.getPrice());
+                ps.setString(4,item.getDescription());
+                ps.setString(5,item.getCategory());
+                ps.setString(6,item.getSubCategory());
+                ps.setBoolean(7,item.getVeg());
+                ps.setString(8,item.getPhotoPath());
+                return ps;
+            }
+        },keyHolder);
+        return (int) keyHolder.getKey().longValue();
     }
 
     @Override
