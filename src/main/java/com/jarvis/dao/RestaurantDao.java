@@ -7,9 +7,26 @@ import com.jarvis.data.RestaurantDetails;
 */
 
 public interface RestaurantDao {
-    /*
-    ** Get restaurant details
-    */
+
+    /**
+     *  Get restaurant details for a restaurant
+     * @param userName
+     * @param password
+     * @return
+     */
     public RestaurantDetails getRestaurantDetails(String userName, String password);
+
+    /**
+     * Sign Up for a new restaurant
+     * @param details
+     * @return
+     */
     public int signUp(RestaurantDetails details);
+
+    /**
+     *  Update Restaurant Details
+     * @param details
+     * @return
+     */
+    public int updateDetails(RestaurantDetails details);
 }

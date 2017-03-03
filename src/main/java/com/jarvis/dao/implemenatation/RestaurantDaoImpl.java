@@ -51,6 +51,17 @@ public class RestaurantDaoImpl extends BaseDao implements RestaurantDao {
         return keyHolder.getKey().intValue();
     }
 
+    @Override
+    public int updateDetails(RestaurantDetails details) {
+  /*      if(!validateUpdateFields())
+            return -1;*/
+        StringBuilder sqlBuilder = new StringBuilder();
+        java.util.Date date= new java.util.Date();
+        details.setUpdatedTime(new Timestamp(date.getTime()));
+        List<Object> params = getUpdateQueryAndParams(details,RST_TABLE_NAME,RST_ID,sqlBuilder);
+        return executeUpdateStatement(jdbcTemplateObject,sqlBuilder.toString(),params);
+    }
+
     public class RestaurantMapper implements RowMapper<RestaurantDetails> {
 
         @Override

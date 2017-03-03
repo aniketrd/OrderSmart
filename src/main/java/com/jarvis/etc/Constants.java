@@ -8,6 +8,7 @@ public class Constants {
     /*
     * * Restaurnat Mnemonics
     */
+    public static final String RST_TABLE_NAME ="Restaurant";
     public static final String RST_ID ="RestaurantId";
     public static final String RST_NAME ="RestaurantName";
     public static final String RST_ADDRESS ="Address";

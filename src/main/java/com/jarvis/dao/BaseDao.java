@@ -3,10 +3,14 @@ package com.jarvis.dao;
 import com.jarvis.data.MenuItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 
 import javax.sql.DataSource;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +46,7 @@ public abstract class BaseDao {
                     continue;
                 }
 
-                PropertyDescriptor pd = new PropertyDescriptor(field.getName(), MenuItem.class);
+                PropertyDescriptor pd = new PropertyDescriptor(field.getName(), updateObject.getClass());
                 Object valueObj = pd.getReadMethod().invoke(updateObject);
                 if (valueObj != null) {
                     params.add(valueObj);
@@ -63,4 +67,25 @@ public abstract class BaseDao {
         params.add(primaryKeyObj);
         return params;
     }
+
+
+    public Boolean validateUpdateFields(){
+        return true;
+    }
+
+    protected int executeUpdateStatement(JdbcTemplate jdbcTemplateObject, String sql, List<Object> params) {
+        return jdbcTemplateObject.update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement(sql);
+                for (int i=0; i<params.size();i++)
+                {
+                    ps.setObject(i+1,params.get(i));
+                }
+                return ps;
+            }
+        });
+    }
 }
+
+

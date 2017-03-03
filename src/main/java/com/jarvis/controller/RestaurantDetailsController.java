@@ -27,10 +27,26 @@ public class RestaurantDetailsController {
         return details;
     }
 
+    /**
+     * Sign Up Service
+     * @param details
+     * @return
+     */
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public int signUp(@RequestBody RestaurantDetails details)
     {
         int restaurantId = restaurantDao.signUp(details);
         return restaurantId;
+    }
+
+    /**
+     * Update Restaurant details service
+     * @param details
+     * @return
+     */
+    @RequestMapping(value = "/updateDetails", method = RequestMethod.POST)
+    public int updateDetails(@RequestBody RestaurantDetails details)
+    {
+        return restaurantDao.updateDetails(details);
     }
 }
