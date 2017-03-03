@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import static com.jarvis.etc.Constants.*;
+
 /**
  * Created by Aniket on 26-02-2017.
  */
@@ -26,15 +28,15 @@ public class RestaurantDaoImpl extends BaseDao implements RestaurantDao {
         @Override
         public RestaurantDetails mapRow(ResultSet rs, int rowNum) throws SQLException {
             RestaurantDetails restaurantDetails = new RestaurantDetails();
-            restaurantDetails.setRestaurantId(rs.getInt("RestaurantId"));
-            restaurantDetails.setRestaurantName(rs.getString("RestaurantName"));
-            restaurantDetails.setAddress(rs.getString("Address"));
-            restaurantDetails.setMobileNo(rs.getString("MobileNo"));
-            restaurantDetails.setOwerName(rs.getString("OwnerName"));
-            restaurantDetails.setRootUserName(rs.getString("RootUserName"));
-            restaurantDetails.setCreatedTime(rs.getTimestamp("CreatedTime"));
-            restaurantDetails.setUpdatedTime(rs.getTimestamp("UpdatedTime"));
-            restaurantDetails.setSubscribitonEnd(rs.getTimestamp("SubscribitonEnd"));
+            restaurantDetails.setRestaurantId(rs.getInt(RST_ID));
+            restaurantDetails.setRestaurantName(rs.getString(RST_NAME));
+            restaurantDetails.setAddress(rs.getString(RST_ADDRESS));
+            restaurantDetails.setMobileNo(rs.getString(RST_MOBILE_NO));
+            restaurantDetails.setOwerName(rs.getString(RST_OWNER));
+            restaurantDetails.setRootUserName(rs.getString(RST_USER_NAME));
+            restaurantDetails.setCreatedTime(rs.getTimestamp(RST_CREATED_TIME));
+            restaurantDetails.setUpdatedTime(rs.getTimestamp(RST_UPDATED_TIME));
+            restaurantDetails.setSubscribitonEnd(rs.getTimestamp(RST_SUBSC_END_TIME));
             return restaurantDetails;
         }
     }

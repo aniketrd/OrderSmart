@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import static com.jarvis.etc.Constants.*;
+
 /**
  * Created by Aniket on 01-03-2017.
  */
@@ -38,15 +40,15 @@ public class MenuDaoImpl extends BaseDao implements MenuDao {
         @Override
         public MenuItem mapRow(ResultSet rs, int rowNum) throws SQLException {
             MenuItem menuItem = new MenuItem();
-            menuItem.setMenuItemId(rs.getInt("MenuItemId"));
-            menuItem.setRestaurantId(rs.getInt("RestaurantId"));
-            menuItem.setItemName(rs.getString("ItemName"));
-            menuItem.setPrice(rs.getFloat("Price"));
-            menuItem.setDescription(rs.getString("Description"));
-            menuItem.setCategory(rs.getString("Category"));
-            menuItem.setSubCategory(rs.getString("SubCategory"));
-            menuItem.setVeg(rs.getBoolean("IsVeg"));
-            menuItem.setPhotoPath(rs.getString("PhotoPath"));
+            menuItem.setMenuItemId(rs.getInt(MENU_ITEM_ID));
+            menuItem.setRestaurantId(rs.getInt(RST_ID));
+            menuItem.setItemName(rs.getString(MENU_ITEM_NAME));
+            menuItem.setPrice(rs.getFloat(MENU_ITEM_PRICE));
+            menuItem.setDescription(rs.getString(MENU_ITEM_DESC));
+            menuItem.setCategory(rs.getString(MENU_ITEM_CATEGORY));
+            menuItem.setSubCategory(rs.getString(MENU_ITEM_SUB_CAT));
+            menuItem.setVeg(rs.getBoolean(MENU_ITEM_VEG_FLAG));
+            menuItem.setPhotoPath(rs.getString(MENU_ITEM_PHOTO_PATH));
             return menuItem;
         }
     }
