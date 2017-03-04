@@ -1,8 +1,11 @@
 package com.jarvis.data;
 
+import lombok.Data;
+
 /**
  * Created by Aniket on 01-03-2017.
  */
+@Data
 public class MenuItem {
 
     private Integer menuItemId;
@@ -15,75 +18,4 @@ public class MenuItem {
     private Boolean isVeg;
     private String photoPath;
 
-    public Integer getMenuItemId() {
-        return menuItemId;
-    }
-
-    public void setMenuItemId(Integer menuItemId) {
-        this.menuItemId = menuItemId;
-    }
-
-    public Integer getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(Integer restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(String subCategory) {
-        this.subCategory = subCategory;
-    }
-
-    public Boolean getIsVeg() {
-        return isVeg;
-    }
-
-    public void setIsVeg(Boolean veg) {
-        isVeg = veg;
-    }
-
-    public String getPhotoPath() {
-        return photoPath;
-    }
-
-    public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
-    }
 }
