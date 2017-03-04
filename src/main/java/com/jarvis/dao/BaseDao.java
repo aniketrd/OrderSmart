@@ -1,6 +1,7 @@
 package com.jarvis.dao;
 
-import com.jarvis.data.MenuItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 public abstract class BaseDao {
 
+    private static final Logger logger = LoggerFactory.getLogger(BaseDao.class);
     @Autowired
     private DataSource dataSource;
     protected JdbcTemplate jdbcTemplateObject;
@@ -35,6 +37,7 @@ public abstract class BaseDao {
         Object primaryKeyObj=null;
         List<Object> params =new ArrayList<>();
 
+        logger.debug("Create UPDATE SQL : Table Name :" +tableName + "\n Primary Key : " + primaryKey +"\n Update Object : "+updateObject);
         stringBuilder.append("UPDATE ");
         stringBuilder.append(tableName);
         try {
@@ -62,9 +65,12 @@ public abstract class BaseDao {
             }
         }catch (Exception e) {
             e.printStackTrace();
+            logger.error(e.toString());
         }
         stringBuilder.append(" WHERE "+ primaryKey +" = ?");
         params.add(primaryKeyObj);
+        logger.debug("Update SQL generated : "+ stringBuilder.toString());
+        logger.debug("Update Params : "+params);
         return params;
     }
 

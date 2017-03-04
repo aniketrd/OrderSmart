@@ -3,20 +3,15 @@ package com.jarvis.dao.implemenatation;
 import com.jarvis.dao.BaseDao;
 import com.jarvis.dao.MenuDao;
 import com.jarvis.data.MenuItem;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static com.jarvis.etc.Constants.*;
 
@@ -25,11 +20,15 @@ import static com.jarvis.etc.Constants.*;
  */
 public class MenuDaoImpl extends BaseDao implements MenuDao {
 
+    private static final Logger logger = LoggerFactory.getLogger(MenuDaoImpl.class);
 
     @Override
     public List<MenuItem> getMenuList(Integer restaurantId) {
         String sql = "select * from MenuItem where RestaurantId = '"+restaurantId+"'";
+        logger.debug("Get Menu List for Restaurant ID : " + restaurantId);
+        logger.debug("SQL before query"+sql);
         List<MenuItem> menuItemList= jdbcTemplateObject.query(sql,new MenuItemMapper());
+        logger.debug("Menu List : " + menuItemList.toString());
         return menuItemList;
     }
 
@@ -59,6 +58,8 @@ public class MenuDaoImpl extends BaseDao implements MenuDao {
     @Override
     public int deleteItem(Integer itemId) {
         String sql = "DELETE from menuitem WHERE "+MENU_ITEM_ID+ " = ?";
+        logger.debug("Delete menu item with ID : " + itemId);
+        logger.debug("SQL before query"+sql);
         return jdbcTemplateObject.update(sql,itemId);
     }
 
@@ -66,9 +67,9 @@ public class MenuDaoImpl extends BaseDao implements MenuDao {
     public int updateMenuItem(MenuItem menuItem) {
 
             StringBuilder builder = new StringBuilder();
+            logger.debug("Update Menu Item : " + menuItem);
             List<Object> params = getUpdateQueryAndParams(menuItem,MENU_ITEM_TABLE_NAME,MENU_ITEM_ID,builder);
             String sql =builder.toString();
-            System.out.print("SQL : "+ builder.toString()+"\n\n Params : "+params );
             return executeUpdateStatement(jdbcTemplateObject,sql,params);
 
     }

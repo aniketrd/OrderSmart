@@ -3,6 +3,8 @@ package com.jarvis.dao.implemenatation;
 import com.jarvis.dao.BaseDao;
 import com.jarvis.dao.RestaurantDao;
 import com.jarvis.data.RestaurantDetails;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -16,18 +18,24 @@ import static com.jarvis.etc.Constants.*;
 /**
  * Created by Aniket on 26-02-2017.
  */
-public class RestaurantDaoImpl extends BaseDao implements RestaurantDao {
+public class RestaurantDaoImpl extends BaseDao implements RestaurantDao{
+
+    private static final Logger logger = LoggerFactory.getLogger(RestaurantDaoImpl.class);
 
     @Override
     public RestaurantDetails getRestaurantDetails(String userName, String password) {
-        String sql = "select * from Restaurant where RootUserName = '"+userName+"'";
-        List<RestaurantDetails> restaurantDetails= jdbcTemplateObject.query(sql,new RestaurantMapper());
+        logger.debug("Get restaurant details userName : " + userName);
+        String sql = "select * from Restaurant where RootUserName = ?";
+        List<RestaurantDetails> restaurantDetails= jdbcTemplateObject.query(sql,new Object[]{userName},new RestaurantMapper());
+        logger.debug("SQL Query : "+sql);
+        logger.debug("Restaurant details : " + restaurantDetails.toString());
         return restaurantDetails.get(0);
     }
 
     @Override
     public int signUp(RestaurantDetails details) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
+        logger.debug("Sign up #Restaurant details : " + details);
         String sql = "INSERT INTO smartorder.restaurant(RestaurantName,OwnerName,Address,MobileNo,CreatedTime,UpdatedTime,SubscribitonEnd,RootUserName,RootPassword)"+
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         java.util.Date data = new java.util.Date();
@@ -48,6 +56,8 @@ public class RestaurantDaoImpl extends BaseDao implements RestaurantDao {
                 return ps;
             }
         },keyHolder);
+        logger.debug("Sql query : " + sql);
+        logger.debug("Restaurant Id generate : " + keyHolder.getKey().intValue());
         return keyHolder.getKey().intValue();
     }
 
@@ -55,6 +65,7 @@ public class RestaurantDaoImpl extends BaseDao implements RestaurantDao {
     public int updateDetails(RestaurantDetails details) {
   /*      if(!validateUpdateFields())
             return -1;*/
+        logger.debug("Update Restaurant details : " + details);
         StringBuilder sqlBuilder = new StringBuilder();
         java.util.Date date= new java.util.Date();
         details.setUpdatedTime(new Timestamp(date.getTime()));
