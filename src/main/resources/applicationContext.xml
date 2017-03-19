@@ -22,8 +22,8 @@
     <bean id="userDao"  class="com.jarvis.dao.implemenatation.UserDaoImpl"></bean>
     <bean id="restaurantDao"  class="com.jarvis.dao.implemenatation.RestaurantDaoImpl"></bean>
     <bean id="menuDao"  class="com.jarvis.dao.implemenatation.MenuDaoImpl"></bean>
+    <bean id="orderDao" class="com.jarvis.dao.implemenatation.OrderDaoImpl"></bean>
 
 
-
-
+    
 </beans>
