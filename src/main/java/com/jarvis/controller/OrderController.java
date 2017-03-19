@@ -22,4 +22,10 @@ public class OrderController {
     {
         return orderDao.createOrder(orderDetails);
     }
+
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    public Integer updateOrder(@RequestBody Order orderDetails)
+    {
+        return orderDao.updateOrder(orderDetails);
+    }
 }

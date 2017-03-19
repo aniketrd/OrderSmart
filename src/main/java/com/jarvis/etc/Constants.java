@@ -32,4 +32,15 @@ public class Constants {
     public static final String MENU_ITEM_SUB_CAT = "SubCategory";
     public static final String MENU_ITEM_VEG_FLAG = "IsVeg";
     public static final String MENU_ITEM_PHOTO_PATH = "PhotoPath";
+
+    /*
+    * * Order Menemonics
+    */
+    public static final String ORDER_TABLE_NAME ="ordertable";
+    public static final String ORDER_ID ="OrderID";
+    public static final String ORDER_TYPE ="OrderType";
+    public static final String ORDER_GUEST_CNT ="GuestCount";
+    public static final String ORDER_CREATED_TIME="CreatedTime";
+    public static final String ORDER_CREATED_BY="CreatedBy";
+
 }

@@ -12,6 +12,7 @@ public interface OrderDao {
      * @param orderDetails
      * @return orderId
      */
-    public int createOrder(Order orderDetails);
+    public Integer createOrder(Order orderDetails);
 
+    public Integer updateOrder(Order orderDetails);
 }
