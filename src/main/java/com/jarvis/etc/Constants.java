@@ -42,5 +42,23 @@ public class Constants {
     public static final String ORDER_GUEST_CNT ="GuestCount";
     public static final String ORDER_CREATED_TIME="CreatedTime";
     public static final String ORDER_CREATED_BY="CreatedBy";
+    public static final String ORDER_STATUS ="OrderStatus";
+    public static final String ORDER_STATUS_FLAG ="OrderStatusFlag";
 
+    /*
+     * * Customer Menemonics
+     */
+    public static final String CUSTOMER_TABLE_NAME ="customer";
+    public static final String CUSTOMER_ID ="CustomerId";
+    public static final String CUSTOMER_NAME ="Name";
+    public static final String CUSTOMER_MOB_NO ="MobileNo";
+    public static final String CUSTOMER_ADDRESS ="Address";
+    public static final String CUSTOMER_EMAIL ="Email";
+
+    /*
+     * * Table Menemonics
+     */
+    public static final String DINING_TABLE_NAME ="diningtable";
+    public static final String DINING_TABLE_ID ="TableId";
+    public static final String DINING_TABLE_LABLE ="TableLable";
 }

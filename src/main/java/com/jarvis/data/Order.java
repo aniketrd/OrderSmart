@@ -11,6 +11,8 @@ import java.sql.Timestamp;
 public class Order {
     private Integer orderId;
     private String orderType;
+    private String orderStatus;
+    private Boolean orderStatusFlag;
     private Integer guestCount;
     private Integer customerId;
     private Integer tableId;

@@ -15,4 +15,6 @@ public interface OrderDao {
     public Integer createOrder(Order orderDetails);
 
     public Integer updateOrder(Order orderDetails);
+
+    public Order getOrderDetails(Integer orderId);
 }
