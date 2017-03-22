@@ -2,8 +2,8 @@ package com.jarvis.dao.implemenatation;
 
 import com.jarvis.dao.BaseDao;
 import com.jarvis.dao.OrderDao;
-import com.jarvis.data.MenuItem;
 import com.jarvis.data.Order;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static com.jarvis.etc.Constants.*;
@@ -22,13 +23,20 @@ import static com.jarvis.etc.Constants.*;
 public class OrderDaoImpl extends BaseDao implements OrderDao {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderDaoImpl.class);
+    private static final ThreadLocal<SimpleDateFormat> sdf = new ThreadLocal<SimpleDateFormat>(){
+        @Override
+        protected SimpleDateFormat initialValue() {
+            SimpleDateFormat result = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            return  result;
+        }
+    };
 
     @Override
     public Integer createOrder(Order orderDetails) {
         String sql = "INSERT INTO `smartorder`.`ordertable`\n" +
                 "(OrderType,GuestCount,CustomerId,TableId,RestaurantId,CreatedTime,CreatedBy,OrderStatus,OrderStatusFlag)" +
                 " VALUES(?,?,?,?,?,?,?,?,?)" ;
-        java.util.Date date = new java.util.Date();
+        DateTime date = DateTime.now();
         logger.debug("Creating a new order : "+orderDetails);
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplateObject.update(new PreparedStatementCreator() {
@@ -40,7 +48,7 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
                 ps.setInt(3, orderDetails.getCustomerId());
                 ps.setInt(4, orderDetails.getTableId());
                 ps.setInt(5, orderDetails.getRestaurantId());
-                ps.setTimestamp(6, new Timestamp(date.getTime()));
+                ps.setTimestamp(6, new Timestamp(date.getMillis()));
                 ps.setString(7, orderDetails.getCreatedBy());
                 ps.setString(8, orderDetails.getOrderStatus());
                 //Order Status flag set when order created.
@@ -80,6 +88,13 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
 
     }
 
+    @Override
+    public List<Order> getAllLiveOrders(Integer restaurantId) {
+        String sql="Select * from ordertable where OrderStatusFlag = true and RestaurantId = ?";
+        List<Order> liveOrders = jdbcTemplateObject.query(sql,new Object[]{restaurantId},new OrderMapper());
+        return liveOrders;
+    }
+
     public class OrderMapper implements RowMapper<Order> {
 
         @Override
@@ -91,7 +106,7 @@ public class OrderDaoImpl extends BaseDao implements OrderDao {
             order.setCustomerId(rs.getInt(CUSTOMER_ID));
             order.setRestaurantId(rs.getInt(RST_ID));
             order.setTableId(rs.getInt(DINING_TABLE_ID));
-            order.setCreatedTime(rs.getTimestamp(ORDER_CREATED_TIME));
+            order.setCreatedTime(sdf.get().format(rs.getTimestamp(ORDER_CREATED_TIME)).toString());
             order.setCreatedBy(rs.getString(ORDER_CREATED_BY));
             order.setOrderStatus(rs.getString(ORDER_STATUS));
             order.setOrderStatusFlag(rs.getBoolean(ORDER_STATUS_FLAG));

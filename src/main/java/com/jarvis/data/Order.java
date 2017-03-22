@@ -1,6 +1,7 @@
 package com.jarvis.data;
 
 import lombok.Data;
+import org.joda.time.DateTime;
 
 import java.sql.Timestamp;
 
@@ -17,6 +18,6 @@ public class Order {
     private Integer customerId;
     private Integer tableId;
     private Integer restaurantId;
-    private Timestamp createdTime;
+    private String createdTime;
     private String createdBy;
 }

@@ -5,6 +5,8 @@ import com.jarvis.data.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by Aniket on 04-03-2017.
  */
@@ -32,5 +34,10 @@ public class OrderController {
         return orderDao.getOrderDetails(orderId);
     }
 
+    @RequestMapping(value = "/getLiveOrders",method = RequestMethod.GET)
+    public List<Order> getAllLiveOrders(@RequestParam(name = "restaurantId") Integer restaurantId)
+    {
+        return orderDao.getAllLiveOrders(restaurantId);
+    }
 
 }
